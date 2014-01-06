@@ -9,6 +9,6 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 [Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/_new?wiki[name]=Wst%C4%99p)
 
-[Webstorage]
+[Webstorage](https://github.com/romanowski/html5-bootcamp/wiki/Webstorage)
 [Webdatabase]
 [System plików]
