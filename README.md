@@ -10,7 +10,7 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 ## Krzysztof:
 
-[Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/_new?wiki[name]=Wst%C4%99p)
+[Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/Wst%C4%99p)
 
 [Webstorage](https://github.com/romanowski/html5-bootcamp/wiki/Webstorage)
 
