@@ -7,9 +7,8 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 [Opis projektu](https://github.com/romanowski/html5-bootcamp/wiki/Opis-projektu)
 
+[Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/_new?wiki[name]=Wst%C4%99p)
 
-
-[Wstęp]
 [Webstorage]
 [Webdatabase]
 [System plików]
