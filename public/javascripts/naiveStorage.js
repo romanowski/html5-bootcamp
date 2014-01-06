@@ -9,8 +9,8 @@ function naiveStorage(module) {
         module.notes = [];
     };
 
-    module.getNotes = function () {
-        return module.notes;
+    module.getNotes = function (callback) {
+        callback(module.notes);
     };
 
 
