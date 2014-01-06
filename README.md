@@ -13,7 +13,9 @@ Krzysztof:
 [Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/_new?wiki[name]=Wst%C4%99p)
 
 [Webstorage](https://github.com/romanowski/html5-bootcamp/wiki/Webstorage)
+
 [Webdatabase](https://github.com/romanowski/html5-bootcamp/wiki/Webdatabase)
+
 [System plików](https://github.com/romanowski/html5-bootcamp/wiki/System-plik%C3%B3w)
 
 Tomasz:
