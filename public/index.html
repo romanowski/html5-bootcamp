@@ -31,8 +31,14 @@
             </div>
             or load it here <input id="load-input" multiple type="file">
 
+            <p id="demo">Click the button to get your coordinates:</p>
 
-                <p id="demo">Click the button to get your coordinates:</p>
+            <div>
+                <button id="geolocationButton" style="display: none">Add location</button>
+                <div>
+                    <div id="mapholder"></div>
+                </div>
+            </div>
         </div>
         <div class="span8">
             <div class="current-note" style="display: none">
@@ -45,6 +51,7 @@
         </div>
     </div>
 </div>
+
 <script>
     var notes = workers(geolocation(filesystem(withWebStorage(new noteEditor()))));
     notes.init()
