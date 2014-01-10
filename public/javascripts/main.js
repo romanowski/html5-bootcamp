@@ -22,7 +22,7 @@ var noteEditor = function(){
 		};
 		self.saveNote(note);
 		self.reloadNoteList();
-		displayFullNode(note);
+		self.displayFullNode(note);
 	}
 
 	function createId() {

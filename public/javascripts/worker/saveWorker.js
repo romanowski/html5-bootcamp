@@ -1,4 +1,4 @@
-console.info("started");
+//console.info("started");
 
 self.addEventListener('message', function(event) {
 	  self.postMessage(event.data);
