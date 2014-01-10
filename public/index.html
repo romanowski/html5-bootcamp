@@ -1,46 +1,52 @@
 <html>
 <head>
-    <title>JNotes</title>
-    <link rel="stylesheet" href="stylesheets/my-style.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap/css/notes.css">
+<title>JNotes</title>
+<link rel="stylesheet" href="stylesheets/my-style.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/notes.css">
 
 
-    <script src="javascripts/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <script src="javascripts/naiveStorage.js"></script>
-    <script src="javascripts/webstorage.js"></script>
-    <script src="javascripts/websql.js"></script>
-    <script src="javascripts/filesystem.js"></script>
+<script src="javascripts/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="javascripts/main.js"></script>
+<script src="javascripts/naiveStorage.js"></script>
+<script src="javascripts/webstorage.js"></script>
+<script src="javascripts/websql.js"></script>
+<script src="javascripts/filesystem.js"></script>
+<script src="javascripts/geolocation.js"></script>
+<script src="javascripts/workers.js"></script>
 
 
 </head>
 <body>
-<div class="container">
-    <div class="row">
-
-        <div class="span4">
-            <h1>Notes <i class="icon-plus add-note" style="cursor: pointer"> </i></h1>
-            <ul class="note-list">
-            </ul>
-            <div id="load">
-                drop here yours note file
-            </div>
-        </div>
-        <div class="span8">
-            <div class="current-note" style="display: none">
-                <h2 class="open-note-title">
-                    <input class="current-note-title">
-                </h2>
-                <textarea class="current-note-text">
+    <p id="demo">Click the button to get your coordinates:</p>
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<h1>
+					Notes <i class="icon-plus add-note" style="cursor: pointer"> </i>
+				</h1>
+				<ul class="note-list">
+				</ul>
+				<div id="load">drop here yours note file</div>
+			</div>
+			<div class="span8">
+				<div class="current-note" style="display: none">
+					<h2 class="open-note-title">
+						<input class="current-note-title">
+					</h2>
+					<textarea class="current-note-text">
                 </textarea>
-            </div>
-        </div>
-    </div>
-</div>
-<script>
-    var notes = filesystem(withWebStorage(new noteEditor()));
+				</div>
+                <button id="geolocationButton" style="display: none">Add location</button>
+				<div>
+					<div id="mapholder"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script> 
+    var notes = workers(geolocation(filesystem(withWebStorage(new noteEditor()))));
     notes.init()
 </script>
 </body>

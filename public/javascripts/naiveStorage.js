@@ -13,6 +13,5 @@ function naiveStorage(module) {
         callback(module.notes);
     };
 
-
     return module;
 }
