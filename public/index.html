@@ -1,17 +1,20 @@
 <html>
 <head>
-    <title>JNotes</title>
-    <link rel="stylesheet" href="stylesheets/my-style.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<title>JNotes</title>
+<link rel="stylesheet" href="stylesheets/my-style.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/notes.css">
 
 
-    <script src="javascripts/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <script src="javascripts/naiveStorage.js"></script>
-    <script src="javascripts/webstorage.js"></script>
-    <script src="javascripts/websql.js"></script>
-    <script src="javascripts/filesystem.js"></script>
+<script src="javascripts/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="javascripts/main.js"></script>
+<script src="javascripts/naiveStorage.js"></script>
+<script src="javascripts/webstorage.js"></script>
+<script src="javascripts/websql.js"></script>
+<script src="javascripts/filesystem.js"></script>
+<script src="javascripts/geolocation.js"></script>
+<script src="javascripts/workers.js"></script>
 
 
 </head>
@@ -27,6 +30,12 @@
                 drop here yours note file
             </div>
             or load it here <input id="load-input" multiple type="file">
+
+
+<div>
+   <p id="demo">Click the button to get your coordinates:</p>
+
+</div>
         </div>
         <div class="span8">
             <div class="current-note" style="display: none">
@@ -40,7 +49,7 @@
     </div>
 </div>
 <script>
-    var notes = filesystem(withWebStorage(new noteEditor()));
+    var notes = workers(geolocation(filesystem(withWebStorage(new noteEditor()))));
     notes.init()
 </script>
 </body>

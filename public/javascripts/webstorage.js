@@ -1,6 +1,6 @@
 function withWebStorage(module) {
     if (!localStorage) {
-        alert("No webstorage support :(")
+        alert("No webstorage support :(");
     }
 
     module.notes = {};
@@ -19,7 +19,6 @@ function withWebStorage(module) {
     module.getNotes = function (callback) {
         callback(module.notes);
     };
-
 
     return module;
 }

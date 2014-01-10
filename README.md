@@ -16,6 +16,10 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 [Webdatabase](https://github.com/romanowski/html5-bootcamp/wiki/Webdatabase)
 
-[System plików](https://github.com/romanowski/html5-bootcamp/wiki/System-plik%C3%B3w)
+[Przetwarzanie plików](https://github.com/romanowski/html5-bootcamp/wiki/Przetwarzanie-plik%C3%B3w)
 
 ## Tomasz:
+
+[Geolokalizacja](https://github.com/romanowski/html5-bootcamp/wiki/Geolokalizacja)
+
+[Wątki](https://github.com/romanowski/html5-bootcamp/wiki/W%C4%85tki)

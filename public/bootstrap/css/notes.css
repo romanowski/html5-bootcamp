@@ -1,0 +1,7 @@
+.note-list-entry {
+    cursor: pointer;
+}
+
+.highlighted-text {
+    background: yellow;
+}
