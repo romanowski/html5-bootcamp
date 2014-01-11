@@ -7,6 +7,8 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 [Opis projektu](https://github.com/romanowski/html5-bootcamp/wiki/Opis-projektu)
 
+[Maszyna wirtualna](https://drive.google.com/file/d/0B3PN0wv6N_pqV3hCNkpwazRJZWc/edit?usp=sharing)
+
 
 ## Krzysztof:
 
