@@ -11,6 +11,7 @@ Bootcamp dotyczący wykożystania HTML5 w środowiskach mobilnych.
 
 
 ## Krzysztof:
+[Wymagania](https://github.com/romanowski/html5-bootcamp/wiki/before-start)
 
 [Wstęp](https://github.com/romanowski/html5-bootcamp/wiki/Wst%C4%99p)
 
