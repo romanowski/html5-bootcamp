@@ -1,114 +1,120 @@
 function workers(module) {
-	
-	// check if web workers are supported
-	if (typeof (Worker) == "undefined") {
-		alert("No web workers support :(");
-		return module;
-	}
 
-	// variables declaration
+    // check if web workers are supported
+    if (typeof (Worker) == "undefined") {
+        alert("No web workers support :(");
+        return module;
+    }
 
-	SLEEP_TIME = 500;
+    // variables declaration
 
-	turnWorkerOn = false;
-	sleepTime = SLEEP_TIME;
+    SLEEP_TIME = 500;
 
-	workersEnabledInfo = "Workers enabled";
-	workersDisabledInfo = "Workers disabled";
+    turnWorkerOn = false;
+    sleepTime = SLEEP_TIME;
 
-	// view creation
+    workersEnabledInfo = "Workers enabled";
+    workersDisabledInfo = "Workers disabled";
 
-	$("#workersControls").show();
-	$("#enableWorker").click(getTurnWorkerFunction());
+    // view creation
 
-	function getTurnWorkerFunction() {
-		return function turnWorker() {
-			if (turnWorkerOn) {
-				setWorkerUpdate();
-				$("#workerStateInfo").text(workersEnabledInfo);
-				$("#workerStateInfo").css('color', 'green');
-			} else {
-				setNonWorkerUpdate()
-				$("#workerStateInfo").text(workersDisabledInfo);
-				$("#workerStateInfo").css('color', 'red');
-			}
-			turnWorkerOn = !turnWorkerOn;
-		};
-	}
+    $("#workersControls").show();
+    $("#enableWorker").click(getTurnWorkerFunction());
 
-	$("#latencyValue").text(sleepTime);
+    function getTurnWorkerFunction() {
+        return function turnWorker() {
+            if (turnWorkerOn) {
+                setWorkerUpdate();
+                $("#workerStateInfo").text(workersEnabledInfo);
+                $("#workerStateInfo").css('color', 'green');
+            } else {
+                setNonWorkerUpdate();
+                $("#workerStateInfo").text(workersDisabledInfo);
+                $("#workerStateInfo").css('color', 'red');
+            }
+            turnWorkerOn = !turnWorkerOn;
+        };
+    }
 
-	disableLatencyButton = $("#disableLatency");
-	disableLatencyButton.click(function() {
-		if (sleepTime != 0) {
-			sleepTime = 0;
-		} else {
-			sleepTime = SLEEP_TIME;
-		}
-		$("#latencyValue").text(sleepTime);
-	})
-	$("#workerStateInfo").text(workersEnabledInfo);
-	$("#workerStateInfo").css('color', 'green');
+    $("#latencyValue").text(sleepTime);
 
-	// web worker creation
+    disableLatencyButton = $("#disableLatency");
+    disableLatencyButton.click(function() {
+        if (sleepTime != 0) {
+            sleepTime = 0;
+        } else {
+            sleepTime = SLEEP_TIME;
+        }
+        $("#latencyValue").text(sleepTime);
+    });
+    $("#workerStateInfo").text(workersEnabledInfo);
+    $("#workerStateInfo").css('color', 'green');
 
-	var saver = new Worker("javascripts/worker/saveWorker.js");
+    // web worker creation
 
-	setWorkerUpdate(); // sets that we want to use web worker to count number of characters in edited node
+    var saver = new Worker("javascripts/worker/saveWorker.js");
 
-	function setWorkerUpdate() {
-		// overwrite save fuction, threre will be added a functionality to count and display number of chars in edited note before saving it to webstoreage
-		module.save = function(note) {
-			// here we post a message to webworker 
-			saver.postMessage({
-				'sleep' : sleepTime,
-				'text' : note.text
-			});
-		};
+    setWorkerUpdate(); // sets that we want to use web worker to count number
+    // of characters in edited node
 
-		// this part will be invoked by webworker when she finishes her asynchronous word count. 
-		// Notice that we are not able to modify any DOM element asynchronusely inside web woreker
-		saver.onmessage = function(e) {
-			var charsNumber = e.data;
-			updateCharsNumberAndSave(charsNumber);
-		};
-	}
+    function setWorkerUpdate() {
+        // overwrite save fuction, threre will be added a functionality to count
+        // and display number of chars in edited note before saving it to
+        // webstoreage
+        module.save = function(note) {
+            // here we post a message to webworker
+            saver.postMessage({
+                'sleep' : sleepTime,
+                'text' : note.text
+            });
 
-	
-	// instead of counting words inside worker count them in normal, synchronous way, used to compare user expirience,
-	function setNonWorkerUpdate() {
-		module.save = function(note) {
-			charsNumber = processNote(note.text, sleepTime);
-			updateCharsNumberAndSave(charsNumber);
-		};
-	}
+            // this part will be invoked by webworker when she finishes her
+            // asynchronous word count.
+            // Notice that we are not able to modify any DOM element
+            // asynchronusely
+            // inside web woreker
+            saver.onmessage = function(e) {
+                var charsNumber = e.data;
+                updateCharsNumberAndSave(charsNumber, note);
+            };
+        };
+    }
 
-	// increment word count label (this cannot be done inside webworker asynchronous call as web workers do not
-	// have access to any DOM elements and also print some data on console ( currently not all browsers enable console object
-	// to be accesed by webworker (eg. Firefox))
-	function updateCharsNumberAndSave(charsNumber) {
-		console.info("Chars number : " + charsNumber);
-		$("#charsCount").text(charsNumber);
-		module.saveDataAndReloadNode(note);
-	}
+    // instead of counting words inside worker count them in normal, synchronous
+    // way, used to compare user expirience,
+    function setNonWorkerUpdate() {
+        module.save = function(note) {
+            charsNumber = processNote(note.text, sleepTime);
+            updateCharsNumberAndSave(charsNumber, note);
+        };
+    }
 
-	//function counting words, it is implemented in a way which will generate noticeable lags
-	function processNote(text, sleepTime) {
-		sleep(sleepTime);
-		return text.length;
-	}
+    // increment word count label (this cannot be done inside webworker
+    // asynchronous call as web workers do not
+    // have access to any DOM elements and also print some data on console (
+    // currently not all browsers enable console object
+    // to be accesed by webworker (eg. Firefox))
+    function updateCharsNumberAndSave(charsNumber, note) {
+        console.info("Chars number : " + charsNumber);
+        $("#charsCount").text(charsNumber);
+        module.saveDataAndReloadNode(note);
+    }
 
-	function sleep(milliseconds) {
-		var start = new Date().getTime();
-		while (true) {
-			if ((new Date().getTime() - start) > milliseconds) {
-				break;
-			}
-			;
-		}
-		;
-	}
-	;
+    // function counting words, it is implemented in a way which will generate
+    // noticeable lags
+    function processNote(text, sleepTime) {
+        sleep(sleepTime);
+        return text.length;
+    }
 
-	return module;
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        while (true) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            };
+        };
+    };
+
+    return module;
 }
