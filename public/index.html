@@ -1,61 +1,67 @@
 <html>
 <head>
-    <title>JNotes</title>
-    <link rel="stylesheet" href="stylesheets/my-style.css">
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap/css/notes.css">
+<title>JNotes</title>
+<link rel="stylesheet" href="stylesheets/my-style.css">
+<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap/css/notes.css">
 
 
-    <script src="javascripts/jquery.js"></script>
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="javascripts/main.js"></script>
-    <script src="javascripts/naiveStorage.js"></script>
-    <script src="javascripts/webstorage.js"></script>
-    <script src="javascripts/websql.js"></script>
-    <script src="javascripts/filesystem.js"></script>
-    <script src="javascripts/geolocation.js"></script>
-    <script src="javascripts/workers.js"></script>
+<script src="javascripts/jquery.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="javascripts/main.js"></script>
+<script src="javascripts/naiveStorage.js"></script>
+<script src="javascripts/webstorage.js"></script>
+<script src="javascripts/websql.js"></script>
+<script src="javascripts/filesystem.js"></script>
+<script src="javascripts/geolocation.js"></script>
+<script src="javascripts/workers.js"></script>
 
 
 </head>
 <body>
-<div class="container">
-    <div class="row">
-
-        <div class="span4">
-            <h1>Notes <i class="icon-plus add-note note-list-entry"> </i></h1>
-            <ul class="note-list">
-            </ul>
-            <div id="load">
-                drop here yours note file
-            </div>
-            or load it here <input id="load-input" multiple type="file">
-
-
-        </div>
-        <div class="span8">
-            <div class="current-note" style="display: none">
-                <h2 class="open-note-title">
-                    <input class="current-note-title">
-                </h2>
-                <textarea class="current-note-text">
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<h1>
+					Notes <i class="icon-plus add-note" style="cursor: pointer"> </i>
+				</h1>
+				<ul class="note-list">
+				</ul>
+				<div id="load">drop here yours note file</div>
+				<div id="workersControls"
+					style="display: none; margin-top: 15px; margin-bottom: 15px;">
+					<button id="enableWorker">Turn worker on/off</button>
+					<label id="workerStateInfo"
+						style="margin-top: 10px; margin-bottom: 10px; font-weight: bold;"></label>
+					<button id="disableLatency" style="display: block">Toggle
+						latency</button>
+					<span style="display: inline">Word count latnecy: </span><label
+						id=latencyValue style="display: inline;"></label> ms
+				</div>
+			</div>
+			<div class="span8">
+				<div class="current-note" style="display: none">
+					<h2 class="open-note-title">
+						<input class="current-note-title">
+					</h2>
+					<textarea class="current-note-text">
                 </textarea>
-                <p id="demo">Click the button to get your coordinates:</p>
-
-                <div>
-                    <button id="geolocationButton" style="display: none">Add location</button>
-                </div>
-                <div>
-                    <div id="mapholder"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    var notes = workers(geolocation(filesystem(withWebStorage(new noteEditor()))));
-    notes.init()
-</script>
+					<p>
+						Word count: <label id="charsCount" style="display: inline;"></label>
+					</p>
+					<button id="geolocationButton" style="display: none;">Add
+						location</button>
+					<label id="geoerror" style="display: none; display: inline;"></label>
+					<div>
+						<div id="mapholder"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		var notes = workers(geolocation(filesystem(withWebStorage(new noteEditor()))));
+		notes.init()
+	</script>
 </body>
 </html>

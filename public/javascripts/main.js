@@ -49,6 +49,7 @@ var noteEditor = function(){
 		.keyup(saveNoteOnChange(note, 'title'));
 		
 		$('.current-note').show();
+		$("#charsCount").text(note.text.length);
 		$("#demo").hide();
 		setCurrent(note);
 	}
@@ -114,17 +115,7 @@ var noteEditor = function(){
 	}
 	
 	self.saveDataAndReloadNode = function(note){
-		self.sleep(100);
 		self.displayFullNode(note);
 		self.saveNote(note);
 	}
-
-	self.sleep = function(milliseconds) {
-		var start = new Date().getTime();
-		while (true) {
-			if ((new Date().getTime() - start) > milliseconds) {
-				break;
-			};
-		};
-	};
 };

@@ -1,9 +1,12 @@
 function geolocation(module) {
+	
+	// check if geolocation is supported
 	if (!navigator.geolocation) {
 		alert("No geolocation support :(");
 		return module;
 	}
 
+	//view building
 	module.displayGeolocationControls = function(note) {
 		var geolocationButton = $('#geolocationButton');
 		var mapholder = $("#mapholder");
@@ -24,6 +27,7 @@ function geolocation(module) {
 		$("#mapholder").html("<img src='" + img_url + "'>");
 	}
 	
+	// display map for given coordinates
 	function createImageMapUrl(note){
 		var latlon = note.latitude + "," + note.longitude;
 		
@@ -34,13 +38,16 @@ function geolocation(module) {
 	}
 	
 	function addGetLocationFunction(note) {
+		// function which returns location
 		return function getLocation() {
+			$('#geolocationButton').hide();
 			navigator.geolocation.getCurrentPosition(
 					addShowPositionFunction(note), showError);
 		};
 	}
 
 	function addShowPositionFunction(note) {
+		// add coordinates to note data, show map and save note to localstoreage
 		return function showPosition(position) {
 			$('#geolocationButton').hide();
 			$("#mapholder").show();
@@ -60,20 +67,21 @@ function geolocation(module) {
 	}
 
 	function showError(error) {
-		var x = $("#demo");
-		x.show();
+		var errorLabel = $("#geoerror");
+		$('#geolocationButton').show();
+		errorLabel.show();
 		switch (error.code) {
 		case error.PERMISSION_DENIED:
-			x.innerHTML = "User denied the request for Geolocation.";
+			errorLabel.text("User denied the request for Geolocation.");
 			break;
 		case error.POSITION_UNAVAILABLE:
-			x.innerHTML = "Location information is unavailable.";
+			errorLabel.text("Location information is unavailable.");
 			break;
 		case error.TIMEOUT:
-			x.innerHTML = "The request to get user location timed out.";
+			errorLabel.text("The request to get user location timed out.");
 			break;
 		case error.UNKNOWN_ERROR:
-			x.innerHTML = "An unknown error occurred.";
+			errorLabel.text("An unknown error occurred.");
 			break;
 		}
 	}
