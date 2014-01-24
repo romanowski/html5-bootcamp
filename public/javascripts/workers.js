@@ -8,19 +8,19 @@ function workers(module) {
 
     // variables declaration
 
-    SLEEP_TIME = 500;
+    LATENCY_TIME = 500;
 
     turnWorkerOn = false;
-    sleepTime = SLEEP_TIME;
+    sleepTime = LATENCY_TIME; // latency of words countig function
 
     workersEnabledInfo = "Workers enabled";
     workersDisabledInfo = "Workers disabled";
 
     // view creation
-
     $("#workersControls").show();
     $("#enableWorker").click(getTurnWorkerFunction());
 
+    // add turn workers on/off behavipur to 'Toggle workers' button
     function getTurnWorkerFunction() {
         return function turnWorker() {
             if (turnWorkerOn) {
@@ -38,12 +38,13 @@ function workers(module) {
 
     $("#latencyValue").text(sleepTime);
 
+    // add actions to 'Toggle latency button'
     disableLatencyButton = $("#disableLatency");
     disableLatencyButton.click(function() {
         if (sleepTime != 0) {
             sleepTime = 0;
         } else {
-            sleepTime = SLEEP_TIME;
+            sleepTime = LATENCY_TIME;
         }
         $("#latencyValue").text(sleepTime);
     });
@@ -62,7 +63,8 @@ function workers(module) {
         // and display number of chars in edited note before saving it to
         // webstoreage
         module.save = function(note) {
-            // here we post a message to webworker
+            // here we post a message to webworker, worker asynchronousely
+            // counts character numbers
             saver.postMessage({
                 'sleep' : sleepTime,
                 'text' : note.text
@@ -71,8 +73,8 @@ function workers(module) {
             // this part will be invoked by webworker when she finishes her
             // asynchronous word count.
             // Notice that we are not able to modify any DOM element
-            // asynchronusely
-            // inside web woreker
+            // asynchronusely inside web woreker we have to do it right here (in
+            // main thread)
             saver.onmessage = function(e) {
                 var charsNumber = e.data;
                 updateCharsNumberAndSave(charsNumber, note);
@@ -80,7 +82,8 @@ function workers(module) {
         };
     }
 
-    // instead of counting words inside worker count them in normal, synchronous
+    // toggles asynchronous behaviour on sequential, instead of counting words
+    // inside worker count them in normal, synchronous
     // way, used to compare user expirience,
     function setNonWorkerUpdate() {
         module.save = function(note) {

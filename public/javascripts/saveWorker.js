@@ -1,4 +1,5 @@
-importScripts("processText.js");
+importScripts("processText.js"); // import functions (processNote() among
+// others)
 
 // asynchronous invocations handler
 self.onmessage = function(e) {

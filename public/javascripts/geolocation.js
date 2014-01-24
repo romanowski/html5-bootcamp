@@ -6,16 +6,19 @@ function geolocation(module) {
         return module;
     }
 
-    // view building
+    // view building - add action of showing map to button and display proper
+    // components
     module.displayGeolocationControls = function(note) {
         var geolocationButton = $('#geolocationButton');
         var mapholder = $("#mapholder");
 
+        // if note do not possess location data do not show map element
         if (!note.latitude && !note.longitude) {
             mapholder.hide();
             geolocationButton.show();
             geolocationButton.unbind('click');
             geolocationButton.click(addGetLocationFunction(note));
+            // if note has location data hide 'Add map button' and show map
         } else {
             geolocationButton.hide();
             mapholder.show();
@@ -23,13 +26,14 @@ function geolocation(module) {
         }
     }
 
+    // get map url and attach do given eleemnt
     function createMap(note) {
         var img_url = createImageMapUrl(note);
 
         $("#mapholder").html("<img src='" + img_url + "'>");
     }
 
-    // display map for given coordinates
+    // create map URL for given coordinates via Google Maps Image API
     function createImageMapUrl(note) {
         var latlon = note.latitude + "," + note.longitude;
 
@@ -38,8 +42,9 @@ function geolocation(module) {
                 + latlon + "&sensor=false";
     }
 
+    // creates function which returns geolocation data or informs why they
+    // cannot be acquired
     function addGetLocationFunction(note) {
-        // function which returns location
         return function getLocation() {
             $('#geolocationButton').hide();
             navigator.geolocation.getCurrentPosition(
@@ -47,6 +52,7 @@ function geolocation(module) {
         };
     }
 
+    // creates handler for cuccessful data acquairing
     function getShowPositionFunction(note) {
         // add coordinates to note data, show map and save note to localstoreage
         return function showPosition(position) {
@@ -62,11 +68,14 @@ function geolocation(module) {
         };
     }
 
+    // save geolocation data to local storeage for given node
     function saveCoords(note) {
         console.info(note);
         module.save(note);
     }
 
+    // a handle for filed geolocation data request, displays a message why data
+    // could not have been loaded
     function showError(error) {
         var errorLabel = $("#geoerror");
         $('#geolocationButton').show();
