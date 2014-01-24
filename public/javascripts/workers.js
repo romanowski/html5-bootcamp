@@ -52,7 +52,7 @@ function workers(module) {
 
     // web worker creation
 
-    var saver = new Worker("javascripts/worker/saveWorker.js");
+    var saver = new Worker("javascripts/saveWorker.js");
 
     setWorkerUpdate(); // sets that we want to use web worker to count number
     // of characters in edited node
@@ -99,22 +99,6 @@ function workers(module) {
         $("#charsCount").text(charsNumber);
         module.saveDataAndReloadNode(note);
     }
-
-    // function counting words, it is implemented in a way which will generate
-    // noticeable lags
-    function processNote(text, sleepTime) {
-        sleep(sleepTime);
-        return text.length;
-    }
-
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        while (true) {
-            if ((new Date().getTime() - start) > milliseconds) {
-                break;
-            };
-        };
-    };
 
     return module;
 }

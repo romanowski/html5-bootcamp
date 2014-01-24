@@ -15,6 +15,7 @@
 <script src="javascripts/filesystem.js"></script>
 <script src="javascripts/geolocation.js"></script>
 <script src="javascripts/workers.js"></script>
+<script src="javascripts/processText.js"></script>
 
 
 </head>
@@ -28,13 +29,13 @@
 				<ul class="note-list">
 				</ul>
 				<div id="load">drop here yours note file</div>
+                or load it here <input id="load-input" multiple type="file">
 				<div id="workersControls"
 					style="display: none; margin-top: 15px; margin-bottom: 15px;">
 					<button id="enableWorker">Turn worker on/off</button>
 					<label id="workerStateInfo"
 						style="margin-top: 10px; margin-bottom: 10px; font-weight: bold;"></label>
-					<button id="disableLatency" style="display: block">Toggle
-						latency</button>
+					<button id="disableLatency" style="display: block">Toggle latency</button>
 					<span style="display: inline">Word count latnecy: </span><label
 						id=latencyValue style="display: inline;"></label> ms
 				</div>
